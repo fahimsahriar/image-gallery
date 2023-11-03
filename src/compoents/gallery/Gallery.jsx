@@ -34,7 +34,16 @@ function Gallery() {
   };
   //upload form's function
   const handleChange = (data) => {
-    setdeleteList((prev) => [...prev, data.target.id]);
+    if (data.target.checked) {
+      setdeleteList((prev) => [...prev, data.target.id]);
+    } else {
+      setdeleteList(current =>
+        current.filter(prev => {
+          // removeing the image which is marked as unselectd
+          return prev !== data.target.id;
+        }),
+      );
+    }
   };
   //delete button's function
   const handleDelete = ()=>{
@@ -54,7 +63,7 @@ function Gallery() {
       </div>
       <div className={styles.container}>
         {imageList.map((url) => {
-          return (<ImageBox url={url} handleChange={handleChange} />);
+          return (<ImageBox key={url} url={url} handleChange={handleChange} />);
         })}
         <div className={styles.last}>
           <UploadForm galleryUpdater={galleryUpdater} />
