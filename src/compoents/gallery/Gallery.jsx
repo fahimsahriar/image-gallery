@@ -4,14 +4,20 @@ import UploadForm from "../uploadForm/uploadForm";
 import { useEffect, useState } from "react";
 import { ref, listAll, getDownloadURL } from "firebase/storage";
 import { projectStorage } from "../../firebase/config";
+import ImageBox from "../imageBox/ImageBox";
+import DeleteImage from '../delete/DeleteImage';
 
-function Gallery({deleteList1}) {
+function Gallery() {
+  const [uploadProcess, setUploadProcess] = useState(0);
   const [imageList, setImageList] = useState([]);
-  const imageListRef = ref(projectStorage, "/");
-  const [uploadProcess, setuUploadProcess] = useState(0);
   const [deleteList, setdeleteList] = useState([]);
+  const [updateOfDelete, setupdateOfDelete] = useState(0);
 
+  //creating reference of firebase storage
+  const imageListRef = ref(projectStorage, "/");
+  // getting all the image stored on firebase
   useEffect(() => {
+    console.log('updating');
     setImageList([]);
     listAll(imageListRef).then((response) => {
       response.items.forEach((item) => {
@@ -20,37 +26,41 @@ function Gallery({deleteList1}) {
         });
       });
     });
-  }, [uploadProcess, deleteList1.current]);
+  }, [uploadProcess, updateOfDelete]);
 
-  const upDater = () => {
-    setuUploadProcess(uploadProcess + 1);
+  //changing the state to re-render gallery image
+  const galleryUpdater = () => {
+    setUploadProcess(uploadProcess + 1);
   };
-
-  const handleChange = (data) => { 
-    setdeleteList( (prev)=>[...prev, data.target.id]);
-    // setDeletecount(deleteList.length);   
+  //upload form's function
+  const handleChange = (data) => {
+    setdeleteList((prev) => [...prev, data.target.id]);
   };
-  deleteList1.current = deleteList;
+  //delete button's function
+  const handleDelete = ()=>{
+    DeleteImage(deleteList, setdeleteList, setupdateOfDelete);
+  }
 
   return (
-    <div className={styles.container}>
-      {imageList.map((url) => {
-        return (
-          <div className={styles.box}>
-            <input className={styles.tick}type='checkbox' name='' id={url} onChange={(url)=>{handleChange(url)}} key={`${url} {'0'}`} />
-            <label htmlFor='url' key={`${url} {'1'}`}>
-              <div key={`${url} {'2'}`}>
-                <img src={url} alt='' />
-              </div>
-            </label>
-          </div>
-        );
-      })}
-      <div className={styles.last}>
-        <UploadForm upDater={upDater} />
+    <>
+      <div className={styles.heading}>
+        <h3>
+          {
+            deleteList.length == 0 ?
+            'PhotoCloud' : `${deleteList.length} selected`
+          }
+        </h3>
+        <p onClick={handleDelete}>Delete</p>
       </div>
-      {/* <Delete /> */}
-    </div>
+      <div className={styles.container}>
+        {imageList.map((url) => {
+          return (<ImageBox url={url} handleChange={handleChange} />);
+        })}
+        <div className={styles.last}>
+          <UploadForm galleryUpdater={galleryUpdater} />
+        </div>
+      </div>
+    </>
   );
 }
 

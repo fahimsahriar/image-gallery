@@ -1,0 +1,44 @@
+.box {
+    min-height: 120px;
+    border-radius: 8px;
+    position: relative;
+  }
+  .box:hover {
+    -webkit-filter: brightness(80%);
+    transition: 0.5s;
+  }
+  .box:first-child {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 3;
+  }
+  .box img {
+    width: 100%;
+    border: 1px solid #edf2f7;
+    border-radius: 8px;
+  }
+  .tick{
+    position: absolute;
+    top:10px;
+    left: 10px;
+    display: none;
+  }
+  
+  .tick:hover{
+    cursor: pointer;
+  }
+  
+  .box:hover .tick{
+    display: block;
+    -webkit-filter: brightness(100%);
+  }
+  .tick:checked{
+    display: block;
+  }
+
+  @media screen and (max-width: 1094px) {
+    .box{
+        min-height: 100%;
+    }
+}

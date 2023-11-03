@@ -1,29 +1,35 @@
 import React, { useState } from "react";
 import styles from "./uploadForm.module.css";
-import UploadProgess from "../uploadProgess/uploadProgess";
+import UseStorage from '../hooks/UseStorage';
 
-function UploadForm({ upDater }) {
+function UploadForm({ galleryUpdater }) {
   const [file, setFile] = useState(null);
   const [error, setError] = useState("Add image");
 
+  
   //validating the file format
   const types = ["image/png", "image/jpeg", "image/webp"];
-
+  
   const changeHandler = (e) => {
     let selected = e.target.files[0];
-
+    
     if (selected && types.includes(selected.type)) {
       setFile(selected);
       setError(false);
+      // const {url, progess, error} = UseStorage(file, galleryUpdater);
     } else {
       setFile(null);
       setError("Wrong file");
     }
   };
-
+  
+  if(file)
+  {
+    UseStorage(file, galleryUpdater);
+    setFile(null);
+  }
   return (
     <>
-        {/* // <div className={styles.load}></div> */}
           <input
             type='file'
             id='file-input'
@@ -37,7 +43,7 @@ function UploadForm({ upDater }) {
               {error ? (
                 error
               ) : (
-                <UploadProgess upDater={upDater} file={file} />
+                'Add image'
               )}
             </div>
           </label>
