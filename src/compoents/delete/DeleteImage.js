@@ -1,10 +1,23 @@
 import React from "react";
 import { getStorage, ref, deleteObject } from "firebase/storage";
 
-const DeleteImage = (deleteList, setdeleteList, setupdateOfDelete) => {
+const DeleteImage = (deleteList, setImageList, setdeleteList) => {
   const storage = getStorage();
 
-  deleteList.forEach((element) => {
+  // deleting from front end
+  deleteList.forEach((element) =>{
+    setImageList(current =>
+      current.filter(prev => {
+        // removeing the image which is marked as unselectd
+        return prev !== element;
+      }),
+    );
+  });
+  
+  let clonedeleteList = deleteList;
+  setdeleteList([]);
+  //deleting from backend
+  clonedeleteList.forEach((element) => {
     // Create a reference to the file to delete
     const desertRef1 = ref(storage, element);
 
@@ -19,11 +32,9 @@ const DeleteImage = (deleteList, setdeleteList, setupdateOfDelete) => {
       })
       .catch((error) => {
         // Uh-oh, an error occurred!
-        console.log("error of deleting file");
+        console.log(error);
       });
   });
-  setdeleteList([]);
-  setupdateOfDelete((prev)=>prev+1);
 };
 
 export default DeleteImage;

@@ -8,10 +8,8 @@ import ImageBox from "../imageBox/ImageBox";
 import DeleteImage from '../delete/DeleteImage';
 
 function Gallery() {
-  const [uploadProcess, setUploadProcess] = useState(0);
   const [imageList, setImageList] = useState([]);
   const [deleteList, setdeleteList] = useState([]);
-  const [updateOfDelete, setupdateOfDelete] = useState(0);
 
   //creating reference of firebase storage
   const imageListRef = ref(projectStorage, "/");
@@ -26,12 +24,8 @@ function Gallery() {
         });
       });
     });
-  }, [uploadProcess, updateOfDelete]);
+  }, []);
 
-  //changing the state to re-render gallery image
-  const galleryUpdater = () => {
-    setUploadProcess(uploadProcess + 1);
-  };
   //upload form's function
   const handleChange = (data) => {
     if (data.target.checked) {
@@ -47,7 +41,7 @@ function Gallery() {
   };
   //delete button's function
   const handleDelete = ()=>{
-    DeleteImage(deleteList, setdeleteList, setupdateOfDelete);
+    DeleteImage(deleteList, setImageList, setdeleteList);
   }
 
   return (
@@ -66,7 +60,7 @@ function Gallery() {
           return (<ImageBox key={url} url={url} handleChange={handleChange} />);
         })}
         <div className={styles.last}>
-          <UploadForm galleryUpdater={galleryUpdater} />
+          <UploadForm setImageList={setImageList} />
         </div>
       </div>
     </>

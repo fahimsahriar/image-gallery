@@ -2,10 +2,7 @@
     min-height: 120px;
     border-radius: 8px;
     position: relative;
-  }
-  .box:hover {
-    -webkit-filter: brightness(80%);
-    transition: 0.5s;
+    animation-timing-function: ease-out;
   }
   .box:first-child {
     grid-column-start: 1;
@@ -17,6 +14,7 @@
     width: 100%;
     border: 1px solid #edf2f7;
     border-radius: 8px;
+    transition: transform 2s;
   }
   .tick{
     position: absolute;
@@ -29,9 +27,12 @@
     cursor: pointer;
   }
   
-  .box:hover .tick{
+  .box:hover > .tick{
     display: block;
-    -webkit-filter: brightness(100%);
+  }  
+  .box:hover {
+    -webkit-filter: brightness(80%);
+    transition: 0.5s;
   }
   .tick:checked{
     display: block;

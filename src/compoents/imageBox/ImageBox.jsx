@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./ImageBox.module.css";
 
-function ImageBox({url, handleChange}) {
+function ImageBox({ url, handleChange }) {
   return (
     <div className={styles.box}>
       <input
@@ -14,11 +14,13 @@ function ImageBox({url, handleChange}) {
         }}
         key={`${url} {'0'}`}
       />
-      <label htmlFor='url' key={`${url} {'1'}`}>
-        <div key={`${url} {'2'}`}>
-          <img src={url} alt='' />
-        </div>
-      </label>
+      <div className={styles.innerBox}>
+        <label htmlFor='url' key={`${url} {'1'}`}>
+          <div key={`${url} {'2'}`}>
+            <img src={url} alt='' />
+          </div>
+        </label>
+      </div>
     </div>
   );
 }
