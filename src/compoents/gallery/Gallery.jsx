@@ -53,7 +53,7 @@ function Gallery() {
             'PhotoCloud' : `${deleteList.length} selected`
           }
         </h3>
-        <p onClick={handleDelete}>Delete</p>
+        <p onClick={handleDelete}>{deleteList.length == 0 ? '' : "Delete"}</p>
       </div>
       <div className={styles.container}>
         {imageList.map((url) => {

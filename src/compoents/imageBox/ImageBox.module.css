@@ -1,6 +1,5 @@
 .box {
     min-height: 120px;
-    border-radius: 8px;
     position: relative;
     animation-timing-function: ease-out;
   }
@@ -11,16 +10,20 @@
     grid-row-end: 3;
   }
   .box img {
-    width: 100%;
+    width: 99%;
     border: 1px solid #edf2f7;
-    border-radius: 8px;
-    transition: transform 2s;
+    border-radius: 5px;
+  }
+  .box:hover {
+    cursor: pointer;
   }
   .tick{
     position: absolute;
     top:10px;
     left: 10px;
     display: none;
+    height: 20px;
+    width: 20px;
   }
   
   .tick:hover{
@@ -29,10 +32,13 @@
   
   .box:hover > .tick{
     display: block;
+    z-index: 10;
   }  
-  .box:hover {
+  .box:hover img{
     -webkit-filter: brightness(80%);
-    transition: 0.5s;
+    transition: 0.2s;
+    background-color: #edf2f7;
+    border-radius: 5px;
   }
   .tick:checked{
     display: block;
