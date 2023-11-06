@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./gallery.module.css";
-import UploadForm from "../uploadForm/uploadForm";
+import UploadForm from "../uploadForm/UploadForm";
 import { useEffect, useState } from "react";
 import { ref, listAll, getDownloadURL } from "firebase/storage";
 import { projectStorage } from "../../firebase/config";
