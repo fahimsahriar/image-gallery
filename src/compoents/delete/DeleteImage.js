@@ -1,4 +1,3 @@
-import React from "react";
 import { getStorage, ref, deleteObject } from "firebase/storage";
 
 const DeleteImage = (deleteList, setImageList, setdeleteList) => {

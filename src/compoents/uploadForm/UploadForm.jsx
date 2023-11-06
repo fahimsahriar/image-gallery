@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "./uploadForm.module.css";
+import styles from "./UploadForm.module.css";
 import UseStorage from "../hooks/UseStorage";
 import SyncLoader from "react-spinners/SyncLoader";
 function UploadForm({ setImageList }) {
